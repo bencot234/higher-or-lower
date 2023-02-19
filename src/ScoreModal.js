@@ -2,8 +2,8 @@ import React from 'react'
 
 const ScoreModal = ({points}) => {
   return (
-    <div>
-      game over! your score was {points}
+    <div className="game-over">
+      <p>game over!</p> your score is {points}
     </div>
   )
 }

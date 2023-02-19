@@ -1,6 +1,59 @@
-.show-new-card {
-  display: block;
+
+
+.btn {
+  padding: 1rem;
+  background-color: #21b5ae;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  border-radius: 1rem;
+  border: none;
+  transition: 0.5s;
+  cursor: pointer;
+  margin: 0.3rem;
 }
-.hide-new-card {
+
+.btn:hover {
+  background-color: #de4151;
+  transition: 0.5s;
+}
+
+
+.show {
+  display: inline-block;
+}
+
+.hide {
   display: none;
+}
+
+.cards-container {
+  margin: 1rem;
+}
+
+@media (min-width: 600px) {
+  .cards-container {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+main {
+  text-align: center;
+  position: relative;
+}
+
+.game-over {
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 2rem;
+  font-size: x-large;
+  text-transform: capitalize;
+  height: 250px;
+  border: 1px solid black;
+  border-radius: 10px;
 }
