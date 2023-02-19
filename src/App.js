@@ -1,6 +1,5 @@
 import './App.css'
 import axios from 'axios'
-import data from './data'
 import { useState, useEffect } from 'react'
 import ScoreModal from './ScoreModal'
 
@@ -13,13 +12,6 @@ const getLocalStorage = () => {
 }
 
 function App() {
-	// 1. have initial random card
-	// 2. when you click button a new card shows up next the the initial card
-	// 3. compare the value of the new card and the initial card
-	// 4. if the value of the new card is greater than the initial card, set the new card as the new value for the initial card, add 1 to the score
-	// 5. if the cards values are the same, show message 'the cards are the same!'. dont give any points
-	// 6. if the initial card value is greater than the the new card, show score. game over. give option to play again
-
 	const [initialCard, setInitialCard] = useState(null);
 	const [nextCard, setNextCard] = useState({});
 	const [showNextCard, setShowNextCard] = useState(false);
@@ -29,6 +21,7 @@ function App() {
 	const [showModal, setShowModal] = useState(false);
 	const [deckId, setDeckId] = useState('');
 	const [showButton, setShowButton] = useState(true);
+	const [showButtons, setShowButtons] = useState(false);
 	const [anotherGame, setAnotherGame] = useState(false);
 	const [topScore, setTopScore] = useState(getLocalStorage());
 
@@ -72,6 +65,7 @@ function App() {
 		setShowButton(false)
 		setShowModal(false)
 		setShowNextCard(false)
+		setShowButtons(true)
 	}
 
 	useEffect(() => {
@@ -79,10 +73,10 @@ function App() {
 	}, [])
 
 	const rightGuess = () => {
-		console.log('right')
 		setPoints((oldPoints) => {
 			return oldPoints + 1;
 		})
+		setDisabled(true)
 		setTimeout(() => {
 			setInitialCard(nextCard)
 			setShowNextCard(false)
@@ -101,23 +95,27 @@ function App() {
 	}
 
 	const sameGuess = () => {
-		console.log('same')
 		setMessage('The values are the same!')
+		setDisabled(true)
 		setTimeout(() => {
+			setShowNextCard(false)
 			setMessage('')
 			drawNextCard();
+			setDisabled(false)
 		}, 3000)
 	}
 
 	const wrongGuess = () => {
-		console.log('wrong')
-		setShowModal(true)
 		setDisabled(true)
-		setShowButton(true)
-		setAnotherGame(true)
-		if (points > topScore) {
-			localStorage.setItem('topScore', JSON.stringify(points))
-		}
+		setTimeout(() => {
+			setShowModal(true)
+			setShowButton(true)
+			setAnotherGame(true)
+			if (points > topScore) {
+				setTopScore(points)
+				localStorage.setItem('topScore', JSON.stringify(points))
+			}
+		}, 1000)
 	}
 
 	const compareValues = async (guess) => {
@@ -138,13 +136,13 @@ function App() {
 
 	return (
 		<main>
-			<p>topscore: {topScore}</p>
-			{showModal && <ScoreModal points={points}/>}
-			<p>higher...? or lower?</p>
+			<p className='title'>higher...? or lower?</p>
+			{showModal && <ScoreModal points={points} topScore={topScore}/>}
 			
 			<p>{message}</p>
-			<p>points: {points}</p>
-			<button className={`${showButton ? 'show' : 'hide'}  btn`} onClick={beginGame}>{anotherGame ? 'play again' : 'begin'}</button>
+			<p className='top-score'>top score: {topScore}</p>
+			<p className='points'>points: {points}</p>
+			<button className={`${showButton ? 'show' : 'hide'}  btn begin-btn`} onClick={beginGame}>{anotherGame ? 'play again' : 'begin'}</button>
 			<div className="cards-container">
 				{initialCard &&
 					<div>
@@ -158,8 +156,11 @@ function App() {
 				}
 
 			</div>
-			<button className="btn" disabled={disabled} onClick={() => compareValues('higher')}>higher</button>
-			<button className="btn" disabled={disabled} onClick={() => compareValues('lower')}>lower</button>
+			<div className={showButtons ? 'show' : 'hide'}>
+				<button className="btn" disabled={disabled} onClick={() => compareValues('higher')}>higher</button>
+				<button className="btn" disabled={disabled} onClick={() => compareValues('lower')}>lower</button>
+
+			</div>
 		</main>
 	);
 }

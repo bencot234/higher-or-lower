@@ -1,4 +1,7 @@
-
+.title {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
 
 .btn {
   padding: 1rem;
@@ -32,21 +35,18 @@
   margin: 1rem;
 }
 
-@media (min-width: 600px) {
-  .cards-container {
-    display: flex;
-    justify-content: center;
-  }
-}
+
 
 main {
   text-align: center;
   position: relative;
+  max-width: 750px;
+  margin: 0 auto;
 }
 
 .game-over {
   position: absolute;
-  top: 58%;
+  top: 34%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
@@ -56,4 +56,57 @@ main {
   height: 250px;
   border: 1px solid black;
   border-radius: 10px;
+  width: 160px;
+}
+
+.top-score, .points {
+  position: absolute;
+  font-size: small;
+  text-transform: uppercase;
+  background-color: #21b564;
+  width: 6rem;
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  top: 25px;
+}
+
+.points {
+  background-color: #2172b5;
+  top: 65px;
+}
+
+.begin-btn {
+  background-color: #de4151;
+  transition: 0.5s;
+}
+
+.begin-btn:hover {
+  background-color: #21b5ae;
+  transition: 0.5s;
+}
+
+
+@media (min-width: 600px) {
+  .cards-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .game-over {
+    top: 53%;
+  }
+
+  .top-score,
+  .points {
+    border-radius: 0px;
+  }
+  .points {
+    top: 40px;
+  }
+  .top-score {
+    top: 0
+  }
 }
