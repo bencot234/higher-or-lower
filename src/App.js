@@ -82,7 +82,7 @@ function App() {
 			setShowNextCard(false)
 			drawNextCard();
 			setDisabled(false)
-		}, 3000)
+		}, 2000)
 	}
 
 	const numerizeValue = (value) => {
@@ -90,6 +90,7 @@ function App() {
 			if (value === 'QUEEN') value = 12;
 			if (value === 'JACK') value = 11;
 			if (value === 'ACE') value = 1;
+			if (value === '10') value = 10;
 
 		return value;
 	}
@@ -102,7 +103,7 @@ function App() {
 			setMessage('')
 			drawNextCard();
 			setDisabled(false)
-		}, 3000)
+		}, 2000)
 	}
 
 	const wrongGuess = () => {
@@ -142,7 +143,7 @@ function App() {
 			<p>{message}</p>
 			<p className='top-score'>top score: {topScore}</p>
 			<p className='points'>points: {points}</p>
-			<button className={`${showButton ? 'show' : 'hide'}  btn begin-btn`} onClick={beginGame}>{anotherGame ? 'play again' : 'begin'}</button>
+			<button className={`${showButton ? 'visible' : 'invisible'}  btn begin-btn`} onClick={beginGame}>{anotherGame ? 'play again' : 'begin'}</button>
 			<div className="cards-container">
 				{initialCard &&
 					<div>

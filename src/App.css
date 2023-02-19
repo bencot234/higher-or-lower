@@ -31,6 +31,14 @@
   display: none;
 }
 
+.invisible {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
 .cards-container {
   margin: 1rem;
 }
