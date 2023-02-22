@@ -99,6 +99,7 @@ function App() {
 		setMessage('The values are the same!')
 		setDisabled(true)
 		setTimeout(() => {
+			setInitialCard(nextCard)
 			setShowNextCard(false)
 			setMessage('')
 			drawNextCard();
@@ -119,20 +120,26 @@ function App() {
 		}, 1000)
 	}
 
-	const compareValues = async (guess) => {
+	const compareValues = (guess) => {
 		setShowNextCard(true)
-		const initialCardValue = numerizeValue(initialCard.value)
-		const nextCardValue = numerizeValue(nextCard.value)
-
+		let initialCardValue = numerizeValue(initialCard.value)
+		let nextCardValue = numerizeValue(nextCard.value)
+		if (initialCardValue === nextCardValue) {
+			sameGuess()
+		} else if (nextCard.value === 'ACE') {
+			if (guess === 'higher') nextCardValue = 14;
+			if (guess === 'lower') nextCardValue = 1;
+		} else if (initialCard.value === 'ACE') {
+			if (guess === 'higher') initialCardValue = 1;
+			if (guess === 'lower') initialCardValue = 14;
+		}
 		if (initialCardValue < nextCardValue) {
 			guess === 'higher' ? rightGuess() : wrongGuess()
 		}
 		if (initialCardValue > nextCardValue) {
 			guess === 'lower' ? rightGuess() : wrongGuess()
 		}
-		if (initialCardValue === nextCardValue) {
-			sameGuess()
-		}
+		
 	}
 
 	return (
