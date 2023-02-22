@@ -82,14 +82,13 @@ function App() {
 			setShowNextCard(false)
 			drawNextCard();
 			setDisabled(false)
-		}, 2000)
+		}, 1500)
 	}
 
 	const numerizeValue = (value) => {
 			if (value === 'KING') value = 13;
 			if (value === 'QUEEN') value = 12;
 			if (value === 'JACK') value = 11;
-			if (value === 'ACE') value = 1;
 			if (value === '10') value = 10;
 
 		return value;
@@ -104,7 +103,7 @@ function App() {
 			setMessage('')
 			drawNextCard();
 			setDisabled(false)
-		}, 2000)
+		}, 1500)
 	}
 
 	const wrongGuess = () => {
@@ -117,7 +116,7 @@ function App() {
 				setTopScore(points)
 				localStorage.setItem('topScore', JSON.stringify(points))
 			}
-		}, 1000)
+		}, 1500)
 	}
 
 	const compareValues = (guess) => {
